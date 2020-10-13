@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EnergyLightMeter.View.MeasurePage"
+             Title="Light and Wavelength">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+                <Label Text="Energy Light Meter" HorizontalTextAlignment="Center" TextColor="White" FontSize="33"/>
+            </Frame>-->
+            <Label Text="Light Sensor" 
+                   FontSize="Title" 
+                   HorizontalTextAlignment="Center"
+                   BackgroundColor="Lavender"
+                   Padding="0,15,0,15"/>
+            <Label Text="Illuminance from sensor:"
+                   x:Name="LighSensorValue"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center"
+            ></Label>
+            <Label x:Name="Label_val" Text="12345"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"></Label>
+            <Label Text="Actual Illuminance"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large"
+                   ></Label>
+            <Entry Placeholder="Enter actual illuminance"
+                   Keyboard="Numeric"
+                   HorizontalTextAlignment="Center"></Entry>
+            <Label Text="Camera" 
+                   FontSize="Title" 
+                   HorizontalTextAlignment="Center"
+                   BackgroundColor="Lavender"
+                   Padding="0,15,0,15"></Label>
+            <Picker ></Picker>
+            <Button x:Name="ButtonCamera" Text="Photo"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

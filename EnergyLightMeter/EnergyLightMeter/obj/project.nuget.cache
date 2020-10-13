@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZiI1Qc10UkQdHToaQi/5CN1lnKF1XtSMJBo2ol5jRkbd5KP3/0aJZL2vrxhANLj47mWgkHJtLtrdv9mhjoyxoQ==",
+  "success": true,
+  "projectFilePath": "E:\\Projects\\EnergyLightMeter\\EnergyLightMeter\\EnergyLightMeter\\EnergyLightMeter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\daria.poltavska\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\daria.poltavska\\.nuget\\packages\\xam.plugin.media\\5.0.1\\xam.plugin.media.5.0.1.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.6.0.1141\\xamarin.forms.4.6.0.1141.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyLightMeter.Android", "EnergyLightMeter\EnergyLightMeter.Android\EnergyLightMeter.Android.csproj", "{28333DB4-C36B-495E-A55D-ED4EB71C8361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyLightMeter", "EnergyLightMeter\EnergyLightMeter\EnergyLightMeter.csproj", "{76FD225E-B5ED-4E3A-B964-B884C8C7A745}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28333DB4-C36B-495E-A55D-ED4EB71C8361}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56E7959F-FED6-4F9F-97F0-F3FEB3C21590}
+	EndGlobalSection
+EndGlobal
