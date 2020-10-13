@@ -37,9 +37,9 @@ namespace EnergyLightMeter.Droid
 
             Sensor lightSensor = sensorManager.GetDefaultSensor(SensorType.Light);
 
-            sensorManager.RegisterListener(this, lightSensor, Android.Hardware.SensorDelay.Game);
+            sensorManager.RegisterListener(this, lightSensor, global::Android.Hardware.SensorDelay.Game);
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 

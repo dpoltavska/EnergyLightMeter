@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyLightMeter.Android", "EnergyLightMeter\EnergyLightMeter.Android\EnergyLightMeter.Android.csproj", "{28333DB4-C36B-495E-A55D-ED4EB71C8361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyLightMeter", "EnergyLightMeter\EnergyLightMeter\EnergyLightMeter.csproj", "{76FD225E-B5ED-4E3A-B964-B884C8C7A745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnergyLightMeter", "EnergyLightMeter\EnergyLightMeter\EnergyLightMeter.csproj", "{76FD225E-B5ED-4E3A-B964-B884C8C7A745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnergyLightMeter.Shared", "EnergyLightMeter\EnergyLightMeter.Shared\EnergyLightMeter.Shared.csproj", "{742D5164-B786-4A81-BAEA-6C60E2344E59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.Build.0 = Release|Any CPU
 		{76FD225E-B5ED-4E3A-B964-B884C8C7A745}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{742D5164-B786-4A81-BAEA-6C60E2344E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742D5164-B786-4A81-BAEA-6C60E2344E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742D5164-B786-4A81-BAEA-6C60E2344E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742D5164-B786-4A81-BAEA-6C60E2344E59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
