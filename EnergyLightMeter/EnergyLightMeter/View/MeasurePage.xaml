@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:EnergyLightMeter.Camera;assembly=EnergyLightMeter"
              x:Class="EnergyLightMeter.View.MeasurePage"
              Title="Light and Wavelength">
     <ContentPage.Content>
@@ -34,6 +35,15 @@
                    BackgroundColor="Lavender"
                    Padding="0,15,0,15"></Label>
             <Picker ></Picker>
+            <local:CameraPreview  
+                    x:Name="CameraPreview"           
+                    BackgroundColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    Camera="Rear"                                         
+                    Margin="0,0,0,0"
+                    VerticalOptions="FillAndExpand"
+                    Grid.Column="0" Grid.Row="0">
+            </local:CameraPreview>
             <Button x:Name="ButtonCamera" Text="Photo"></Button>
         </StackLayout>
     </ContentPage.Content>

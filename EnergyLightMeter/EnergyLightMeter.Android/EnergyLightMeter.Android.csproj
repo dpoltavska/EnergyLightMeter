@@ -58,6 +58,13 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera2\CameraCaptureListener.cs" />
+    <Compile Include="Camera2\CameraCaptureStateListener.cs" />
+    <Compile Include="Camera2\CameraCaptureStillPictureSessionCallback.cs" />
+    <Compile Include="Camera2\CameraDroid.cs" />
+    <Compile Include="Camera2\CameraStateListener.cs" />
+    <Compile Include="Camera2\CameraViewServiceRenderer.cs" />
+    <Compile Include="Camera2\ImageAvailableListener.cs" />
     <Compile Include="LightProvider.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -90,6 +97,10 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EnergyLightMeter.Shared\EnergyLightMeter.Shared.csproj">
+      <Project>{742D5164-B786-4A81-BAEA-6C60E2344E59}</Project>
+      <Name>EnergyLightMeter.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EnergyLightMeter\EnergyLightMeter.csproj">
       <Project>{BCC74BCE-A007-4FCE-BE37-1DB501463FFF}</Project>
       <Name>EnergyLightMeter</Name>

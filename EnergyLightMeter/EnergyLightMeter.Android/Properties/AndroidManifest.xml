@@ -3,4 +3,5 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="26" />
 	<application android:label="EnergyLightMeter.Android" android:theme="@style/MainTheme"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
 </manifest>

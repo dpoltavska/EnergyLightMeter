@@ -8,6 +8,7 @@ namespace EnergyLightMeter
     public partial class App : Application
     {
         private float light;
+        private string waveLenght;
         private MeasurePage measurePage;
 
         public float LightValue
@@ -16,6 +17,16 @@ namespace EnergyLightMeter
             set
             {
                 light = value;
+                measurePage.UpdateLight(value);
+            }
+        }
+
+        public string WaveLenghtValue
+        {
+            get => waveLenght;
+            set
+            {
+                waveLenght = value;
                 measurePage.UpdateLight(value);
             }
         }
