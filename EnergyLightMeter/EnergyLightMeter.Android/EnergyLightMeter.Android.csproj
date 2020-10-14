@@ -54,6 +54,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="OpenCvSharp3-AnyCPU">
+      <Version>4.0.0.20181129</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.1141" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
@@ -67,8 +70,12 @@
     <Compile Include="Camera2\ImageAvailableListener.cs" />
     <Compile Include="LightProvider.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IImageProcessor.cs" />
+    <Compile Include="Services\ImageProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -97,10 +104,6 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EnergyLightMeter.Shared\EnergyLightMeter.Shared.csproj">
-      <Project>{742D5164-B786-4A81-BAEA-6C60E2344E59}</Project>
-      <Name>EnergyLightMeter.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EnergyLightMeter\EnergyLightMeter.csproj">
       <Project>{BCC74BCE-A007-4FCE-BE37-1DB501463FFF}</Project>
       <Name>EnergyLightMeter</Name>

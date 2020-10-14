@@ -44,6 +44,9 @@
                     VerticalOptions="FillAndExpand"
                     Grid.Column="0" Grid.Row="0">
             </local:CameraPreview>
+            <BoxView x:Name="DominantColor"
+                   HorizontalOptions="FillAndExpand"
+                   HeightRequest="20"></BoxView>
             <Button x:Name="ButtonCamera" Text="Photo"></Button>
         </StackLayout>
     </ContentPage.Content>

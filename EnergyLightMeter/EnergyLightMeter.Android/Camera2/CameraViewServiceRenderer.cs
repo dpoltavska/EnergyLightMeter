@@ -1,23 +1,26 @@
 ﻿using Android.Content;
-using EnergyLightMeter.Android.Camera2;
-using EnergyLightMeter.Shared;
+using Android.Graphics;
+using EnergyLightMeter.Android.Services;
+using EnergyLightMeter.Droid.Camera2;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraPreview = EnergyLightMeter.Camera.CameraPreview;
 
 [assembly: ExportRenderer(typeof(CameraPreview), typeof(CameraViewServiceRenderer))]
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
     public class CameraViewServiceRenderer : ViewRenderer<CameraPreview, CameraDroid>
 	{
 		private CameraDroid _camera;
         private CameraPreview _currentElement;
         private readonly Context _context;
-        private IImageProcessor _imageProcessor;
+        private ImageProcessor _imageProcessor;
 
 		public CameraViewServiceRenderer(Context context) : base(context)
 		{
 			_context = context;
+            _imageProcessor = new ImageProcessor();
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<CameraPreview> e)
@@ -27,7 +30,7 @@ namespace EnergyLightMeter.Android.Camera2
 			_camera = new CameraDroid(Context);
 
             SetNativeControl(_camera);
-
+            var mainTheread = MainThread.IsMainThread;
             if (e.NewElement != null && _camera != null)
 			{
                 _currentElement = e.NewElement;
@@ -41,16 +44,22 @@ namespace EnergyLightMeter.Android.Camera2
             _camera.LockFocus();
         }
 
-        private void OnPhoto(object sender, byte[] imgSource)
-		{
-           //Here you have the image byte data to do whatever you want 
+        private void OnPhoto(object sender, Models.Image imgSource)
+        {
+            var array = _imageProcessor.FromYuvToRgb(imgSource.Array, imgSource.Width, imgSource.Height);
+            Bitmap image = BitmapFactory.DecodeByteArray(array, 0, array.Length);
+            //Here you have the image byte data to do whatever you want 
             Device.BeginInvokeOnMainThread(() =>
-            {
-                var color = _imageProcessor.GetDominantColor(imgSource);
-                var waveLength = _imageProcessor.GetWaveLenght(color);
+            {            
+                if (image != null)
+                {
+                    var color = _imageProcessor.GetDominantColor(image);
+                    var waveLength = _imageProcessor.GetWaveLenght(color);
 
-                //must be better way to update label. Place label on camera component itself? So we have access to it from renderer.
-                ((App)Application.Current).WaveLenghtValue = waveLength;
+                    //must be better way to update label. Place label on camera component itself? So we have access to it from renderer.
+                    ((App)Application.Current).WaveLenghtValue = waveLength;
+                    ((App)Application.Current).DominantColor = new Xamarin.Forms.Color((double)color.Red / 255, (double)color.Green / 255, (double)color.Blue / 255, (double)color.Alpha / 255);
+                }
             });   
         }
 

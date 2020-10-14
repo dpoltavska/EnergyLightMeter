@@ -7,6 +7,7 @@ namespace EnergyLightMeter
 {
     public partial class App : Application
     {
+        private Color color;
         private float light;
         private string waveLenght;
         private MeasurePage measurePage;
@@ -27,7 +28,16 @@ namespace EnergyLightMeter
             set
             {
                 waveLenght = value;
-                measurePage.UpdateLight(value);
+                measurePage.UpdateWaveLenght(value);
+            }
+        }
+        public Color DominantColor
+        {
+            get => color;
+            set
+            {
+                color = value;
+                measurePage.UpdateDominantColor(value);
             }
         }
 
