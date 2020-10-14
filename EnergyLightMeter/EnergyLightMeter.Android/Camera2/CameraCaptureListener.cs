@@ -1,8 +1,7 @@
 ﻿using Android.Hardware.Camera2;
 using Java.Lang;
-using System;
 
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
     public class CameraCaptureListener : CameraCaptureSession.CaptureCallback
     {

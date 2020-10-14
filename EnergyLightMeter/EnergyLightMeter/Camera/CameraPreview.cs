@@ -21,13 +21,13 @@ namespace EnergyLightMeter.Camera
             defaultValue: CameraOptions.Rear);
 
         public CameraOptions Camera {
-            get { return (CameraOptions)GetValue(CameraProperty); }
-            set { SetValue(CameraProperty, value); }
+            get => (CameraOptions)GetValue(CameraProperty);
+            set => SetValue(CameraProperty, value);
         }
 
         public Command CameraClick {
-            get { return cameraClick; }
-            set { cameraClick = value; }
+            get => cameraClick;
+            set => cameraClick = value;
         }
 
         public void PictureTaken()

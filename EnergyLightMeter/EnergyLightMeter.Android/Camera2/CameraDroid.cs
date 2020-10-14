@@ -1,22 +1,19 @@
-﻿using Android.Content;
+﻿using System;
+using System.Collections.Generic;
+using Android.Content;
 using Android.Graphics;
 using Android.Hardware.Camera2;
 using Android.Hardware.Camera2.Params;
 using Android.Media;
 using Android.OS;
-using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using EnergyLightMeter.Camera;
-using EnergyLightMeter.Droid;
 using Java.Lang;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Size = Android.Util.Size;
 
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
     public class CameraDroid : FrameLayout, TextureView.ISurfaceTextureListener
     {
@@ -240,6 +237,8 @@ namespace EnergyLightMeter.Android.Camera2
 
             _previewBuilder = CameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
             _previewBuilder.AddTarget(surface);
+            
+            // _previewBuilder.AddTarget(_imageReader.Surface);
 
             List<Surface> surfaces = new List<Surface>();
             surfaces.Add(surface);

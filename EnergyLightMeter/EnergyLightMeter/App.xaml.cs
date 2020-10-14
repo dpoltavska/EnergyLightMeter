@@ -1,7 +1,5 @@
-﻿using System;
-using EnergyLightMeter.View;
+﻿using EnergyLightMeter.View;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace EnergyLightMeter
 {
@@ -27,7 +25,7 @@ namespace EnergyLightMeter
             set
             {
                 waveLenght = value;
-                measurePage.UpdateLight(value);
+                measurePage.UpdateWaveLenght(value);
             }
         }
 
@@ -38,7 +36,9 @@ namespace EnergyLightMeter
             Plugin.Media.CrossMedia.Current.Initialize();
 
             var tabbedPge = new TabbedPage();
+
             measurePage = new MeasurePage();
+
             tabbedPge.Children.Add(measurePage);
             tabbedPge.Children.Add(new FileDataPage());
 

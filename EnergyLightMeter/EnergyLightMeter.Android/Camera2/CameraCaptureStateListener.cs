@@ -1,7 +1,7 @@
-﻿using Android.Hardware.Camera2;
-using System;
+﻿using System;
+using Android.Hardware.Camera2;
 
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
 	public class CameraCaptureStateListener : CameraCaptureSession.StateCallback
 	{

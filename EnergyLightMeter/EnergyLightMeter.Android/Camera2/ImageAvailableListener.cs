@@ -1,7 +1,7 @@
-﻿using Android.Media;
-using System;
+﻿using System;
+using Android.Media;
 
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
 	public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
 	{

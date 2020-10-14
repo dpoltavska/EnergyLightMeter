@@ -9,42 +9,61 @@
             <!--<Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
                 <Label Text="Energy Light Meter" HorizontalTextAlignment="Center" TextColor="White" FontSize="33"/>
             </Frame>-->
+            <Picker x:Name="ChosenFile"
+                    Title="Choose a file"
+                    ItemsSource="{Binding ExistingFiles}"
+                    SelectedItem="{Binding SelectedFile}"
+                    SelectedIndexChanged="ChosenFile_OnSelectedIndexChanged"></Picker>
             <Label Text="Light Sensor" 
-                   FontSize="Title" 
+                   FontSize="18" 
                    HorizontalTextAlignment="Center"
                    BackgroundColor="Lavender"
-                   Padding="0,15,0,15"/>
-            <Label Text="Illuminance from sensor:"
-                   x:Name="LighSensorValue"
-                   FontSize="Large"
-                   HorizontalTextAlignment="Center"
-            ></Label>
-            <Label x:Name="Label_val" Text="12345"
-                   HorizontalTextAlignment="Center"
-                   FontSize="Medium"></Label>
-            <Label Text="Actual Illuminance"
-                   HorizontalTextAlignment="Center"
-                   FontSize="Large"
-                   ></Label>
-            <Entry Placeholder="Enter actual illuminance"
+                   Padding="0,10,0,10"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0,5,0,0">
+                <Label Text="Illuminance from sensor:"
+                       x:Name="LighSensorValue"
+                       FontSize="16"
+                       HorizontalTextAlignment="Center"
+                ></Label>
+                <Label x:Name="LabelIluminance" Text="12345"
+                       HorizontalTextAlignment="Center"
+                       FontSize="15"></Label>
+            </StackLayout>
+            <Entry x:Name="RealIlluminance" 
+                   Placeholder="Enter actual illuminance (lx)"
                    Keyboard="Numeric"
-                   HorizontalTextAlignment="Center"></Entry>
+                   HorizontalTextAlignment="Center"
+                   FontSize="15"></Entry>
             <Label Text="Camera" 
-                   FontSize="Title" 
+                   FontSize="18" 
                    HorizontalTextAlignment="Center"
                    BackgroundColor="Lavender"
-                   Padding="0,15,0,15"></Label>
-            <Picker ></Picker>
+                   Padding="0,10,0,10"></Label>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0,5,0,0">
+                <Label Text="Wavelength diapason:"
+                       HorizontalTextAlignment="Center"
+                       FontSize="15"></Label>
+                <Label x:Name="LabelWavelength" Text="underfined"
+                       HorizontalTextAlignment="Center"
+                       FontSize="15"></Label>
+            </StackLayout>
+            <Entry x:Name="RealWavelength" 
+                   Placeholder="Enter actual wavelength (nm)"
+                   Keyboard="Numeric"
+                   HorizontalTextAlignment="Center"
+                   FontSize="15"></Entry>
             <local:CameraPreview  
                     x:Name="CameraPreview"           
                     BackgroundColor="Black"
                     HorizontalOptions="FillAndExpand"
                     Camera="Rear"                                         
                     Margin="0,0,0,0"
-                    VerticalOptions="FillAndExpand"
-                    Grid.Column="0" Grid.Row="0">
+                    VerticalOptions="FillAndExpand">
             </local:CameraPreview>
-            <Button x:Name="ButtonCamera" Text="Photo"></Button>
+            <Button 
+                x:Name="ButtonCamera" 
+                Text="Capture to file"
+                Clicked="CaptureMeasures"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

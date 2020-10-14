@@ -4,17 +4,13 @@
              x:Class="EnergyLightMeter.View.FileDataPage"
              Title="File">
     <ContentPage.Content>
-        <Grid Margin="20,35,20,20">
-            <Label Text="File Data Page" />
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition />
-                <RowDefinition Height="100" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-        </Grid>
+        <StackLayout>
+            <Picker x:Name="FilePageChosenFile"
+                    Title="Choose a file"
+                    ItemsSource="{Binding ExistingFiles}"
+                    SelectedItem="{Binding SelectedFile}"
+                    SelectedIndexChanged="FilePageChosenFile_OnSelectedIndexChanged"></Picker>
+            <StackLayout x:Name="StackLayoutGrid"></StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

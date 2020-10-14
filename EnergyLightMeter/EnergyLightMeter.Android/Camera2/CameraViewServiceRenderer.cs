@@ -1,12 +1,12 @@
 ﻿using Android.Content;
-using EnergyLightMeter.Android.Camera2;
+using EnergyLightMeter.Droid.Camera2;
 using EnergyLightMeter.Shared;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using CameraPreview = EnergyLightMeter.Camera.CameraPreview;
 
 [assembly: ExportRenderer(typeof(CameraPreview), typeof(CameraViewServiceRenderer))]
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
     public class CameraViewServiceRenderer : ViewRenderer<CameraPreview, CameraDroid>
 	{
@@ -18,6 +18,7 @@ namespace EnergyLightMeter.Android.Camera2
 		public CameraViewServiceRenderer(Context context) : base(context)
 		{
 			_context = context;
+            _imageProcessor = new ImageProcessor();
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<CameraPreview> e)

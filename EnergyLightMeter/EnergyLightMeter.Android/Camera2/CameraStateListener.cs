@@ -1,6 +1,6 @@
 ﻿using Android.Hardware.Camera2;
 
-namespace EnergyLightMeter.Android.Camera2
+namespace EnergyLightMeter.Droid.Camera2
 {
 	public class CameraStateListener : CameraDevice.StateCallback
 	{

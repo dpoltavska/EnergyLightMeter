@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using EnergyLightMeter.Services;
+using EnergyLightMeter.ViewModel;
 using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -16,16 +19,25 @@ namespace EnergyLightMeter.View
     public partial class MeasurePage : ContentPage
     {
         private ILightProvider lightProvider;
+        private IFileProvider fileProvider;
+
+        public FilesViewModel FileNames { get; set; }
+
         public MeasurePage()
         {
             InitializeComponent();
 
             lightProvider = DependencyService.Get<ILightProvider>();
+            fileProvider = DependencyService.Get<IFileProvider>();
 
-            Label_val.Text = lightProvider.GetLightValue().ToString();
+            FileNames = new FilesViewModel();
+
+            BindingContext = FileNames;
+
+            LabelIluminance.Text = lightProvider.GetLightValue().ToString();
         }
 
-        async protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
@@ -34,13 +46,13 @@ namespace EnergyLightMeter.View
 
         public void UpdateLight(float light)
         {
-            Label_val.Text = light.ToString();
+            LabelIluminance.Text = light.ToString();
         }
 
         //Change Label
         public void UpdateWaveLenght(string waveLenght)
         {
-            Label_val.Text = waveLenght;
+            LabelWavelength.Text = waveLenght;
         }
 
         async Task<bool> GetCameraPermission()
@@ -65,16 +77,74 @@ namespace EnergyLightMeter.View
                 {
                     return true;
                 }
-                else
-                {
-                    await DisplayAlert("Could not access Camera", "App needs Camera access to work. Go to Settings >> App to enable Camera access ", "GOT IT");
-                    return false;
-                }
+
+                await DisplayAlert("Could not access Camera", "App needs Camera access to work. Go to Settings >> App to enable Camera access ", "GOT IT");
+                
+                return false;
             }
             catch (Exception)
             {
                 return false;
             }
+        }
+
+        async Task<bool> GetExternalStoragePermission()
+        {
+            try
+            {
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
+                if (status != PermissionStatus.Granted)
+                {
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
+                    {
+                        var result = await DisplayAlert("Storage access needed", "App needs Sotrage access enabled to work.", "ENABLE", "CANCEL");
+
+                        if (!result)
+                            return false;
+                    }
+
+                    status = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    return true;
+                }
+
+                await DisplayAlert("Could not access Storage", "App needs Storage access to work.", "GOT IT");
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private async void CaptureMeasures(object sender, EventArgs args)
+        {
+            using (UserDialogs.Instance.Loading("Saving", maskType: MaskType.Black))
+            {
+                if (await GetExternalStoragePermission())
+                {
+                    fileProvider.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
+                    {
+                        Date = DateTime.Now,
+                        MeasuredIluminance = double.Parse(LabelIluminance.Text),
+                        RealIluminance = string.IsNullOrEmpty(RealIlluminance.Text) ? null : (double?)double.Parse(RealIlluminance.Text),
+                        WavelengthDiapason = LabelWavelength.Text,
+                        WaveLength = string.IsNullOrEmpty(RealWavelength.Text) ? null : (int?) int.Parse(RealWavelength.Text),
+                        Red = 34,
+                        Green = 21,
+                        Blue = 67
+                    });
+                }
+            }
+        }
+
+        private void ChosenFile_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            FileNames.SelectedFile = FileNames.ExistingFiles[ChosenFile.SelectedIndex];
         }
     }
 }
