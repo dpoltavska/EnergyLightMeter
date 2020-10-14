@@ -140,6 +140,8 @@ namespace EnergyLightMeter.View
                     });
                 }
             }
+
+            UserDialogs.Instance.Toast(new ToastConfig("Saved"));
         }
 
         private void ChosenFile_OnSelectedIndexChanged(object sender, EventArgs e)
