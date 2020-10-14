@@ -35,13 +35,13 @@ namespace EnergyLightMeter.Droid.Camera2
         public const int STATE_PICTURE_TAKEN = 4;
 
         #endregion
-
+        
         // The current state of camera state for taking pictures.
         public int mState = STATE_PREVIEW;
 
         private static readonly SparseIntArray Orientations = new SparseIntArray();
 
-        public event EventHandler<byte[]> Photo;
+        public event EventHandler<Models.Image> Photo;
 
         public bool OpeningCamera { private get; set; }
 
@@ -66,6 +66,9 @@ namespace EnergyLightMeter.Droid.Camera2
 
         private HandlerThread _backgroundThread;
         private Handler _backgroundHandler;
+
+        private HandlerThread _processorThread;
+        private Handler _processorHandler;
 
         private ImageReader _imageReader;
         private string _cameraId;
@@ -118,7 +121,8 @@ namespace EnergyLightMeter.Droid.Camera2
 
         public void OnSurfaceTextureUpdated(SurfaceTexture surface)
         {
-
+            var texture = new Surface(surface);
+            
         }
 
         private void SetUpCameraOutputs(int width, int height)
@@ -159,7 +163,7 @@ namespace EnergyLightMeter.Droid.Camera2
                 _idealPhotoSize = GetOptimalSize(_supportedJpegSizes, 1050, 1400); //MAGIC NUMBER WHICH HAS PROVEN TO BE THE BEST
             }
 
-            _imageReader = ImageReader.NewInstance(_idealPhotoSize.Width, _idealPhotoSize.Height, ImageFormatType.Jpeg, 1);
+            _imageReader = ImageReader.NewInstance(_idealPhotoSize.Width / 16, _idealPhotoSize.Height / 16, ImageFormatType.Yuv420888, 4);
 
             var readerListener = new ImageAvailableListener();
 
@@ -170,7 +174,7 @@ namespace EnergyLightMeter.Droid.Camera2
 
             _flashSupported = HasFLash(characteristics);
 
-            _imageReader.SetOnImageAvailableListener(readerListener, _backgroundHandler);
+            _imageReader.SetOnImageAvailableListener(readerListener, _processorHandler);
 
             _previewSize = GetOptimalSize(map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))), width, height);
         }
@@ -202,29 +206,6 @@ namespace EnergyLightMeter.Droid.Camera2
             _manager.OpenCamera(_cameraId, _cameraStateListener, null);
         }
 
-        public void TakePhoto()
-        {
-            if (_context == null || CameraDevice == null) return;
-
-            if (_captureBuilder == null)
-                _captureBuilder = CameraDevice.CreateCaptureRequest(CameraTemplate.StillCapture);
-
-            _captureBuilder.AddTarget(_imageReader.Surface);
-
-            _captureBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
-            SetAutoFlash(_captureBuilder);
-
-            _previewSession.StopRepeating();
-            _previewSession.Capture(_captureBuilder.Build(),
-                new CameraCaptureStillPictureSessionCallback
-            {
-                OnCaptureCompletedAction = session =>
-                {
-                    UnlockFocus();
-                }
-            }, null);
-        }
-
         public void StartPreview()
         {
             if (CameraDevice == null || !_cameraTexture.IsAvailable || _previewSize == null) return;
@@ -237,8 +218,7 @@ namespace EnergyLightMeter.Droid.Camera2
 
             _previewBuilder = CameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
             _previewBuilder.AddTarget(surface);
-            
-            // _previewBuilder.AddTarget(_imageReader.Surface);
+            _previewBuilder.AddTarget(_imageReader.Surface);
 
             List<Surface> surfaces = new List<Surface>();
             surfaces.Add(surface);
@@ -320,6 +300,10 @@ namespace EnergyLightMeter.Droid.Camera2
             _backgroundThread = new HandlerThread("CameraBackground");
             _backgroundThread.Start();
             _backgroundHandler = new Handler(_backgroundThread.Looper);
+
+            _processorThread = new HandlerThread("ImageProcessingBackground");
+            _processorThread.Start();
+            _processorHandler = new Handler(_processorThread.Looper);
         }
 
         private void StopBackgroundThread()

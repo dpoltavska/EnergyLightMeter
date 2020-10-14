@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,12 @@ namespace EnergyLightMeter.View
         public void UpdateWaveLenght(string waveLenght)
         {
             LabelWavelength.Text = waveLenght;
+        }
+
+        public void UpdateDominantColor(Color color)
+        {
+            DominantColor.Color = color;
+            RealWavelength.Text = WavelengthDetector.GetWaveLengthDiapason(color);
         }
 
         async Task<bool> GetCameraPermission()

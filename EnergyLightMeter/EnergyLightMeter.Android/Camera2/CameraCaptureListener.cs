@@ -1,5 +1,7 @@
 ﻿using Android.Hardware.Camera2;
 using Java.Lang;
+using System;
+using EnergyLightMeter.Droid.Camera2;
 
 namespace EnergyLightMeter.Droid.Camera2
 {
@@ -33,7 +35,6 @@ namespace EnergyLightMeter.Droid.Camera2
                         if (afState == null)
                         {
                             owner.mState = CameraDroid.STATE_PICTURE_TAKEN;
-                            owner.TakePhoto();
                         }
                         else if ((((int)ControlAFState.FocusedLocked) == afState.IntValue()) ||
                                    (((int)ControlAFState.NotFocusedLocked) == afState.IntValue()))
@@ -44,7 +45,6 @@ namespace EnergyLightMeter.Droid.Camera2
                             if (aeState == null || aeState.IntValue() == ((int)ControlAEState.Converged))
                             {
                                 owner.mState = CameraDroid.STATE_PICTURE_TAKEN;
-                                owner.TakePhoto();
                             }
                             else
                             {
@@ -72,7 +72,6 @@ namespace EnergyLightMeter.Droid.Camera2
                         if (aeState == null || aeState.IntValue() != ((int)ControlAEState.Precapture))
                         {
                             owner.mState = CameraDroid.STATE_PICTURE_TAKEN;
-                            owner.TakePhoto();
                         }
                         break;
                     }

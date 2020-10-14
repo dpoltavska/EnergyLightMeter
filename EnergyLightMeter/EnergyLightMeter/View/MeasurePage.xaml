@@ -60,6 +60,9 @@
                     Margin="0,0,0,0"
                     VerticalOptions="FillAndExpand">
             </local:CameraPreview>
+            <BoxView x:Name="DominantColor"
+                   HorizontalOptions="FillAndExpand"
+                   HeightRequest="20"></BoxView>
             <Button 
                 x:Name="ButtonCamera" 
                 Text="Capture to file"

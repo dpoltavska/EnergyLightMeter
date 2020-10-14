@@ -1,4 +1,6 @@
 ﻿using Android.Hardware.Camera2;
+using Android.Util;
+using EnergyLightMeter.Droid.Camera2;
 
 namespace EnergyLightMeter.Droid.Camera2
 {
@@ -32,6 +34,8 @@ namespace EnergyLightMeter.Droid.Camera2
 
 			Camera.CameraDevice = null;
 			Camera.OpeningCamera = false;
+			Log.Error("OnError", error.ToString());
+            System.Console.WriteLine(error);
 		}
 	}
 }

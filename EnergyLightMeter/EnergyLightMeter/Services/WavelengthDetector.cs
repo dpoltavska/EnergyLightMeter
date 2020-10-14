@@ -1,18 +1,18 @@
 ﻿using System;
 using EnergyLightMeter.Extensions;
+using Xamarin.Forms;
 
 namespace EnergyLightMeter.Services
 {
     public static class WavelengthDetector
     {
-        public static string GetWaveLengthDiapason(byte r, byte g, byte b)
+        public static string GetWaveLengthDiapason(Color color)
         {
-            var color = ColorExtension.CreateColor(r, g, b);
+            return GetWaveLengthDiapason(color.R, color.G, color.B);
+        }
 
-            var rd = r / 256.0;
-            var gd = g / 256.0;
-            var bd = b / 256.0;
-
+        public static string GetWaveLengthDiapason(double rd, double gd, double bd)
+        {
             var M = Math.Max(Math.Max(rd, gd), bd);
             var m = Math.Min(Math.Min(rd, gd), bd);
             var C = M - m;
