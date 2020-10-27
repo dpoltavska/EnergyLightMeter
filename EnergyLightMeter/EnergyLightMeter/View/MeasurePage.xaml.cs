@@ -21,6 +21,7 @@ namespace EnergyLightMeter.View
     {
         private ILightProvider lightProvider;
         private IFileProvider fileProvider;
+        private Color dominantColor = Color.Accent;
 
         public FilesViewModel FileNames { get; set; }
 
@@ -58,8 +59,10 @@ namespace EnergyLightMeter.View
 
         public void UpdateDominantColor(Color color)
         {
+            this.dominantColor = color;
+
             DominantColor.Color = color;
-            RealWavelength.Text = WavelengthDetector.GetWaveLengthDiapason(color);
+            LabelWavelength.Text = WavelengthDetector.GetWaveLengthDiapason(color);
         }
 
         async Task<bool> GetCameraPermission()
@@ -134,6 +137,8 @@ namespace EnergyLightMeter.View
             {
                 if (await GetExternalStoragePermission())
                 {
+                    var color = DominantColor.Color;
+
                     fileProvider.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
                     {
                         Date = DateTime.Now,
@@ -141,9 +146,9 @@ namespace EnergyLightMeter.View
                         RealIluminance = string.IsNullOrEmpty(RealIlluminance.Text) ? null : (double?)double.Parse(RealIlluminance.Text),
                         WavelengthDiapason = LabelWavelength.Text,
                         WaveLength = string.IsNullOrEmpty(RealWavelength.Text) ? null : (int?) int.Parse(RealWavelength.Text),
-                        Red = 34,
-                        Green = 21,
-                        Blue = 67
+                        Red = (byte)(this.dominantColor.R * 255),
+                        Green = (byte)(this.dominantColor.G * 255),
+                        Blue = (byte)(this.dominantColor.B * 255)
                     });
                 }
             }
