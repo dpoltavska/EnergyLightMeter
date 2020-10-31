@@ -18,6 +18,7 @@ namespace EnergyLightMeter.View
         private Color dominantColor = Color.Accent;
         private bool isCaptureContinuous = false;
         private bool isWritingToTheFile = false;
+        private int periodOfWriting;
 
         public FilesViewModel FileNames { get; set; }
 
@@ -141,7 +142,24 @@ namespace EnergyLightMeter.View
 
             this.FileViewUpdater.OnFileUpdated();
 
-            UserDialogs.Instance.Toast(new ToastConfig("Saved"));
+            //UserDialogs.Instance.Toast(new ToastConfig("Saved"));
+            UserDialogs.Instance.Toast("Saved", TimeSpan.FromMilliseconds(400));
+        }
+
+        private async Task WriteToFileUntilStopped()
+        {
+            if (await GetExternalStoragePermission())
+            {
+                while (this.isWritingToTheFile)
+                {
+                    this.SaveRecord();
+                    UserDialogs.Instance.Toast("Saved", TimeSpan.FromMilliseconds(400));
+
+                    await Task.Delay(this.periodOfWriting);
+                }
+            }
+
+            this.FileViewUpdater.OnFileUpdated();
         }
 
         private void ChosenFile_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -175,7 +193,7 @@ namespace EnergyLightMeter.View
         {
             ContinuousButtons.IsVisible = this.isCaptureContinuous;
             CapturePeriodEntry.IsVisible = this.isCaptureContinuous;
-            SecLabel.IsVisible = this.isCaptureContinuous;
+            MilliSecLabel.IsVisible = this.isCaptureContinuous;
             ButtonCamera.IsVisible = !this.isCaptureContinuous;
             StartWritingButton.IsEnabled = !this.isWritingToTheFile;
             StopWritingButton.IsEnabled = this.isWritingToTheFile;
@@ -184,11 +202,16 @@ namespace EnergyLightMeter.View
             CaptureMethod.IsEnabled = !this.isWritingToTheFile;
         }
 
-        private void StartWritingButton_OnClicked(object sender, EventArgs e)
+        private async void StartWritingButton_OnClicked(object sender, EventArgs e)
         {
+            this.periodOfWriting = int.Parse(CapturePeriodEntry.Text);
             this.isWritingToTheFile = true;
-
+            
             UpdateContinuousCaptureControls();
+
+            await Task.Delay(2000);
+
+            await this.WriteToFileUntilStopped();
         }
 
         private void StopWritingButton_OnClicked(object sender, EventArgs e)

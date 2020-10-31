@@ -30,11 +30,11 @@
                 </Picker>
                 <Entry x:Name="CapturePeriodEntry" 
                        Placeholder="Period" 
-                       Text ="2"
+                       Text ="2000"
                        FontSize="14" 
                        FlexLayout.Grow="1"></Entry>
-                <Label x:Name ="SecLabel" 
-                       Text="sec" 
+                <Label x:Name ="MilliSecLabel" 
+                       Text="ms" 
                        VerticalTextAlignment="Center" 
                        FontSize="14"
                        FlexLayout.Grow="1"></Label>

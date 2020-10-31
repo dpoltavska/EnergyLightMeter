@@ -21,8 +21,6 @@ namespace EnergyLightMeter.Droid.Services
             {
                 streamWriter.WriteLine(record.ToString());
             }
-
-            this.GetRecords(fileName);
         }
 
         public List<StatisticsRecordViewModel> GetRecords(string fileName)
