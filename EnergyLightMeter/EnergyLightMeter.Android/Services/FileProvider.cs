@@ -1,6 +1,7 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.IO;
+using Android.OS;
 using EnergyLightMeter.Services;
 using EnergyLightMeter.ViewModel;
 using Xamarin.Forms;
@@ -12,7 +13,7 @@ namespace EnergyLightMeter.Droid.Services
     {
         public void SaveRecord(string fileName, StatisticsRecordViewModel record)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads).AbsolutePath;
 
             var filePath = Path.Combine(path, fileName);
 
@@ -28,7 +29,7 @@ namespace EnergyLightMeter.Droid.Services
         {
             try
             {
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads).AbsolutePath;
 
                 var filePath = Path.Combine(path, fileName);
 

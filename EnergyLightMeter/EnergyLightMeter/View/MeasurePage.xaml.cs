@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using EnergyLightMeter.Services;
 using EnergyLightMeter.ViewModel;
-using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
@@ -22,8 +16,12 @@ namespace EnergyLightMeter.View
         private ILightProvider lightProvider;
         private IFileProvider fileProvider;
         private Color dominantColor = Color.Accent;
+        private bool isCaptureContinuous = false;
+        private bool isWritingToTheFile = false;
 
         public FilesViewModel FileNames { get; set; }
+
+        public FileViewUpdater FileViewUpdater { get; set; }
 
         public MeasurePage()
         {
@@ -137,21 +135,11 @@ namespace EnergyLightMeter.View
             {
                 if (await GetExternalStoragePermission())
                 {
-                    var color = DominantColor.Color;
-
-                    fileProvider.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
-                    {
-                        Date = DateTime.Now,
-                        MeasuredIluminance = double.Parse(LabelIluminance.Text),
-                        RealIluminance = string.IsNullOrEmpty(RealIlluminance.Text) ? null : (double?)double.Parse(RealIlluminance.Text),
-                        WavelengthDiapason = LabelWavelength.Text,
-                        WaveLength = string.IsNullOrEmpty(RealWavelength.Text) ? null : (int?) int.Parse(RealWavelength.Text),
-                        Red = (byte)(this.dominantColor.R * 255),
-                        Green = (byte)(this.dominantColor.G * 255),
-                        Blue = (byte)(this.dominantColor.B * 255)
-                    });
+                    this.SaveRecord();
                 }
             }
+
+            this.FileViewUpdater.OnFileUpdated();
 
             UserDialogs.Instance.Toast(new ToastConfig("Saved"));
         }
@@ -159,6 +147,55 @@ namespace EnergyLightMeter.View
         private void ChosenFile_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             FileNames.SelectedFile = FileNames.ExistingFiles[ChosenFile.SelectedIndex];
+        }
+
+        private void CaptureMethod_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.isCaptureContinuous = CaptureMethod.SelectedIndex == 1;
+
+            UpdateContinuousCaptureControls();
+        }
+
+        private void SaveRecord()
+        {
+            fileProvider.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
+            {
+                Date = DateTime.Now,
+                MeasuredIluminance = double.Parse(LabelIluminance.Text),
+                RealIluminance = string.IsNullOrEmpty(RealIlluminance.Text) ? null : (double?)double.Parse(RealIlluminance.Text),
+                WavelengthDiapason = LabelWavelength.Text,
+                WaveLength = string.IsNullOrEmpty(RealWavelength.Text) ? null : (int?)int.Parse(RealWavelength.Text),
+                Red = (byte)(this.dominantColor.R * 255),
+                Green = (byte)(this.dominantColor.G * 255),
+                Blue = (byte)(this.dominantColor.B * 255)
+            });
+        }
+
+        private void UpdateContinuousCaptureControls()
+        {
+            ContinuousButtons.IsVisible = this.isCaptureContinuous;
+            CapturePeriodEntry.IsVisible = this.isCaptureContinuous;
+            SecLabel.IsVisible = this.isCaptureContinuous;
+            ButtonCamera.IsVisible = !this.isCaptureContinuous;
+            StartWritingButton.IsEnabled = !this.isWritingToTheFile;
+            StopWritingButton.IsEnabled = this.isWritingToTheFile;
+            CapturePeriodEntry.IsEnabled = !this.isWritingToTheFile;
+            ChosenFile.IsEnabled = !this.isWritingToTheFile;
+            CaptureMethod.IsEnabled = !this.isWritingToTheFile;
+        }
+
+        private void StartWritingButton_OnClicked(object sender, EventArgs e)
+        {
+            this.isWritingToTheFile = true;
+
+            UpdateContinuousCaptureControls();
+        }
+
+        private void StopWritingButton_OnClicked(object sender, EventArgs e)
+        {
+            this.isWritingToTheFile = false;
+
+            UpdateContinuousCaptureControls();
         }
     }
 }

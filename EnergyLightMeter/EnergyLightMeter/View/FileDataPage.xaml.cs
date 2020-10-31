@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Acr.UserDialogs;
 using EnergyLightMeter.Extensions;
 using EnergyLightMeter.Services;
@@ -30,10 +26,10 @@ namespace EnergyLightMeter.View
 
             BindingContext = FileNames;
 
-            InitializaGrid();
+            InitializeGrid();
         }
 
-        public void InitializaGrid()
+        public void InitializeGrid()
         {
             ScrollView sc = new ScrollView();
             Grid innerG = new Grid();
@@ -97,13 +93,13 @@ namespace EnergyLightMeter.View
 
                 var record = statistics.ElementAt(i);
 
-                innerG.Children.Add(new Label() { Text = record.Date.ToString(), BackgroundColor = rowsColor }, 0, i+1);
-                innerG.Children.Add(new Label() { Text = record.MeasuredIluminance.ToString(), BackgroundColor = rowsColor }, 1, i + 1);
-                innerG.Children.Add(new Label() { Text = record.RealIluminance?.ToString() ?? "-", HorizontalTextAlignment = TextAlignment.Center, BackgroundColor = rowsColor }, 2, i + 1);
-                innerG.Children.Add(new Label() { Text = record.WavelengthDiapason, BackgroundColor = rowsColor }, 3, i + 1);
-                innerG.Children.Add(new Label() { Text = record.WaveLength?.ToString() ?? "-" , HorizontalTextAlignment = TextAlignment.Center, BackgroundColor = rowsColor }, 4, i + 1);
+                innerG.Children.Add(new Label { Text = record.Date.ToString(), BackgroundColor = rowsColor, TextColor = Color.Black}, 0, i+1);
+                innerG.Children.Add(new Label { Text = record.MeasuredIluminance.ToString(), BackgroundColor = rowsColor, TextColor = Color.Black }, 1, i + 1);
+                innerG.Children.Add(new Label { Text = record.RealIluminance?.ToString() ?? "-", HorizontalTextAlignment = TextAlignment.Center, BackgroundColor = rowsColor, TextColor = Color.Black }, 2, i + 1);
+                innerG.Children.Add(new Label { Text = record.WavelengthDiapason, BackgroundColor = rowsColor, TextColor = Color.Black }, 3, i + 1);
+                innerG.Children.Add(new Label { Text = record.WaveLength?.ToString() ?? "-" , HorizontalTextAlignment = TextAlignment.Center, BackgroundColor = rowsColor, TextColor = Color.Black }, 4, i + 1);
                 innerG.Children.Add(
-                    new BoxView()
+                    new BoxView
                     {
                         Color = ColorExtension.CreateColor(record.Red, record.Green, record.Blue),
                         HorizontalOptions = LayoutOptions.Fill,
@@ -123,7 +119,7 @@ namespace EnergyLightMeter.View
             {
                 FileNames.SelectedFile = FileNames.ExistingFiles[FilePageChosenFile.SelectedIndex];
 
-                InitializaGrid();
+                InitializeGrid();
             }
         }
     }

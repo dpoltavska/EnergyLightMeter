@@ -9,11 +9,36 @@
             <!--<Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
                 <Label Text="Energy Light Meter" HorizontalTextAlignment="Center" TextColor="White" FontSize="33"/>
             </Frame>-->
-            <Picker x:Name="ChosenFile"
-                    Title="Choose a file"
-                    ItemsSource="{Binding ExistingFiles}"
-                    SelectedItem="{Binding SelectedFile}"
-                    SelectedIndexChanged="ChosenFile_OnSelectedIndexChanged"></Picker>
+            <FlexLayout Direction="Row">
+                <Picker x:Name="ChosenFile"
+                        Title="Choose a file"
+                        ItemsSource="{Binding ExistingFiles}"
+                        SelectedItem="{Binding SelectedFile}"
+                        SelectedIndexChanged="ChosenFile_OnSelectedIndexChanged"
+                        FlexLayout.Grow="1"
+                        FontSize="14"></Picker>
+                <Picker x:Name="CaptureMethod"
+                        Title="Choose a method"
+                        SelectedIndexChanged="CaptureMethod_OnSelectedIndexChanged"
+                        FlexLayout.Grow="1"
+                        FontSize="14">
+                    <Picker.Items>
+                        <x:String>On click</x:String>
+                        <x:String>Continuous</x:String>
+                    </Picker.Items>
+                    <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                </Picker>
+                <Entry x:Name="CapturePeriodEntry" 
+                       Placeholder="Period" 
+                       Text ="2"
+                       FontSize="14" 
+                       FlexLayout.Grow="1"></Entry>
+                <Label x:Name ="SecLabel" 
+                       Text="sec" 
+                       VerticalTextAlignment="Center" 
+                       FontSize="14"
+                       FlexLayout.Grow="1"></Label>
+            </FlexLayout>
             <Label Text="Light Sensor" 
                    FontSize="18" 
                    HorizontalTextAlignment="Center"
@@ -67,6 +92,23 @@
                 x:Name="ButtonCamera" 
                 Text="Capture to file"
                 Clicked="CaptureMeasures"></Button>
+            <FlexLayout x:Name="ContinuousButtons" 
+                        Direction="Row"
+                        AlignItems="Stretch"
+                        JustifyContent="SpaceBetween"
+                        IsVisible="False">
+                <Button 
+                    x:Name="StartWritingButton" 
+                    Text="Start"
+                    Clicked="StartWritingButton_OnClicked"
+                    FlexLayout.Grow="1"></Button>
+                <Button 
+                    x:Name="StopWritingButton" 
+                    Text="Stop"
+                    Clicked="StopWritingButton_OnClicked"
+                    IsEnabled="False"
+                    FlexLayout.Grow="1"></Button>
+            </FlexLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

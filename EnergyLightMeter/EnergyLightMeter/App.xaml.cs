@@ -1,4 +1,5 @@
-﻿using EnergyLightMeter.View;
+﻿using EnergyLightMeter.Services;
+using EnergyLightMeter.View;
 using Xamarin.Forms;
 
 namespace EnergyLightMeter
@@ -9,6 +10,7 @@ namespace EnergyLightMeter
         private float light;
         private string waveLenght;
         private MeasurePage measurePage;
+        private FileViewUpdater fileViewUpdater = new FileViewUpdater();
 
         public float LightValue
         {
@@ -48,9 +50,13 @@ namespace EnergyLightMeter
             var tabbedPge = new TabbedPage();
 
             measurePage = new MeasurePage();
+            measurePage.FileViewUpdater = this.fileViewUpdater;
+
+            var fileDataPage = new FileDataPage();
+            this.fileViewUpdater.UpdateFile += fileDataPage.InitializeGrid;
 
             tabbedPge.Children.Add(measurePage);
-            tabbedPge.Children.Add(new FileDataPage());
+            tabbedPge.Children.Add(fileDataPage);
 
             MainPage = tabbedPge;
         }
