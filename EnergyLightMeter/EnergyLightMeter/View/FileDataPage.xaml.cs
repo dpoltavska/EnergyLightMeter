@@ -12,7 +12,7 @@ namespace EnergyLightMeter.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FileDataPage : ContentPage
     {
-        private IFileProvider fileProvider;
+        private IFileService fileService;
 
         public FilesViewModel FileNames { get; set; }
 
@@ -20,7 +20,7 @@ namespace EnergyLightMeter.View
         {
             InitializeComponent();
 
-            fileProvider = DependencyService.Get<IFileProvider>();
+            fileService = DependencyService.Get<IFileService>();
 
             FileNames = new FilesViewModel();
 
@@ -85,7 +85,7 @@ namespace EnergyLightMeter.View
 
             innerG.RowDefinitions = new RowDefinitionCollection();
 
-            var statistics = fileProvider.GetRecords(this.FileNames.SelectedFile);
+            var statistics = fileService.GetRecords(this.FileNames.SelectedFile);
 
             for (int i = 0; i < statistics.Count; i++)
             {

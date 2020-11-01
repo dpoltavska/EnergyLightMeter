@@ -6,10 +6,10 @@ using EnergyLightMeter.Services;
 using EnergyLightMeter.ViewModel;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(EnergyLightMeter.Droid.Services.FileProvider))]
+[assembly: Dependency(typeof(EnergyLightMeter.Droid.Services.FileService))]
 namespace EnergyLightMeter.Droid.Services
 {
-    public class FileProvider : IFileProvider
+    public class FileService : IFileService
     {
         public void SaveRecord(string fileName, StatisticsRecordViewModel record)
         {
