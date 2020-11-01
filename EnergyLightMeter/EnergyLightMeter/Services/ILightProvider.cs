@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EnergyLightMeter.Services
+﻿namespace EnergyLightMeter.Services
 {
     public interface ILightProvider
     {

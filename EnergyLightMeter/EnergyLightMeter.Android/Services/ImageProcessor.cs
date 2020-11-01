@@ -20,10 +20,12 @@ namespace EnergyLightMeter.Android.Services
         public Color GetDominantColor(Bitmap image)
         {
             Dictionary<int, int> pixels = new Dictionary<int, int>();
+            var height = image.Height / 3;
+            var width = image.Width / 3;
 
-            for (int i = 0; i < image.Height; i++)
+            for (int i = height; i < image.Height - height; i++)
             {
-                for (int j = 0; j < image.Width; j++)
+                for (int j = width; j < image.Width - width; j++)
                 {
                     var currentPixel = image.GetPixel(j, i);
                     if (!pixels.ContainsKey(currentPixel)) {

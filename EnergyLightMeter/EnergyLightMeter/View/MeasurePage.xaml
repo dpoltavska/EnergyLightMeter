@@ -77,6 +77,7 @@
                    Keyboard="Numeric"
                    HorizontalTextAlignment="Center"
                    FontSize="15"></Entry>
+            <Button x:Name="SwitchCamerasButton" IsVisible="False" Clicked="SwitchCamerasButton_OnClicked"></Button>
             <local:CameraPreview  
                     x:Name="CameraPreview"           
                     BackgroundColor="Black"

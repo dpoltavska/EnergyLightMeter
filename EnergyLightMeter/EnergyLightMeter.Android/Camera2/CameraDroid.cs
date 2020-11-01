@@ -77,7 +77,7 @@ namespace EnergyLightMeter.Droid.Camera2
 
         public void SetCameraOption(CameraOptions cameraOptions)
         {
-            this.lensFacing = (cameraOptions == CameraOptions.Front) ? LensFacing.Front : LensFacing.Back;
+            this.lensFacing = cameraOptions == CameraOptions.Front ? LensFacing.Front : LensFacing.Back;
         }
 
         public CameraDroid(Context context) : base(context)
@@ -138,7 +138,7 @@ namespace EnergyLightMeter.Droid.Camera2
                 CameraCharacteristics chararc = _manager.GetCameraCharacteristics(cameraIds[i]);
 
                 var facing = (Integer)chararc.Get(CameraCharacteristics.LensFacing);
-                if (facing != null && facing == (Integer.ValueOf((int)LensFacing.Back)))
+                if (facing != null && facing == (Integer.ValueOf((int)this.lensFacing)))
                 {
                     _cameraId = cameraIds[i];
 

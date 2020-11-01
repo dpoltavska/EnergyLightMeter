@@ -1,5 +1,4 @@
 ﻿using System;
-using EnergyLightMeter.Extensions;
 using Xamarin.Forms;
 
 namespace EnergyLightMeter.Services

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using EnergyLightMeter.ViewModel;
 
 namespace EnergyLightMeter.Services
 {
-    public interface IFileProvider
+    public interface IFileService
     {
         void SaveRecord(string fileName, StatisticsRecordViewModel record);
 

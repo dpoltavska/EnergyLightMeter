@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using EnergyLightMeter.Camera;
 using EnergyLightMeter.Services;
 using EnergyLightMeter.ViewModel;
 using Plugin.Permissions;
@@ -14,11 +15,12 @@ namespace EnergyLightMeter.View
     public partial class MeasurePage : ContentPage
     {
         private ILightProvider lightProvider;
-        private IFileProvider fileProvider;
+        private IFileService fileService;
         private Color dominantColor = Color.Accent;
         private bool isCaptureContinuous = false;
         private bool isWritingToTheFile = false;
         private int periodOfWriting;
+        private CameraOptions currentCamera = CameraOptions.Rear;
 
         public FilesViewModel FileNames { get; set; }
 
@@ -29,7 +31,7 @@ namespace EnergyLightMeter.View
             InitializeComponent();
 
             lightProvider = DependencyService.Get<ILightProvider>();
-            fileProvider = DependencyService.Get<IFileProvider>();
+            fileService = DependencyService.Get<IFileService>();
 
             FileNames = new FilesViewModel();
 
@@ -176,7 +178,7 @@ namespace EnergyLightMeter.View
 
         private void SaveRecord()
         {
-            fileProvider.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
+            fileService.SaveRecord(this.FileNames.SelectedFile, new StatisticsRecordViewModel()
             {
                 Date = DateTime.Now,
                 MeasuredIluminance = double.Parse(LabelIluminance.Text),
@@ -219,6 +221,13 @@ namespace EnergyLightMeter.View
             this.isWritingToTheFile = false;
 
             UpdateContinuousCaptureControls();
+        }
+
+        private void SwitchCamerasButton_OnClicked(object sender, EventArgs e)
+        {
+            this.currentCamera = this.currentCamera == CameraOptions.Front ? CameraOptions.Rear : CameraOptions.Front;
+
+            CameraPreview.OnClick();
         }
     }
 }

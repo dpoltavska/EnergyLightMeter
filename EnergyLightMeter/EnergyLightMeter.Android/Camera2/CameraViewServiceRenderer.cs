@@ -1,6 +1,8 @@
-﻿using Android.Content;
+﻿using System;
+using Android.Content;
 using Android.Graphics;
 using EnergyLightMeter.Android.Services;
+using EnergyLightMeter.Camera;
 using EnergyLightMeter.Droid.Camera2;
 using Xamarin.Essentials;
 using EnergyLightMeter.Droid.Camera2;
@@ -36,10 +38,18 @@ namespace EnergyLightMeter.Droid.Camera2
             if (e.NewElement != null && _camera != null)
 			{
                 _currentElement = e.NewElement;
+                _currentElement.Click += OnCameraPreviewClicked;
                 _camera.SetCameraOption(_currentElement.Camera);
                 _camera.Photo += OnPhoto;
             }
 		}
+
+        void OnCameraPreviewClicked(object sender, EventArgs e)
+        {
+            _currentElement.Camera = _currentElement.Camera == CameraOptions.Front ? CameraOptions.Rear : CameraOptions.Front;
+            _camera.SetCameraOption(_currentElement.Camera);
+            _camera.OpenCamera(1080, 453);
+        }
 
         public void TakePicture()
         {

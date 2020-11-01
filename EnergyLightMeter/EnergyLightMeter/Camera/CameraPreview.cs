@@ -13,6 +13,7 @@ namespace EnergyLightMeter.Camera
     public class CameraPreview : Xamarin.Forms.View
     {
         Command cameraClick;
+        public event EventHandler Click;
 
         public static readonly BindableProperty CameraProperty = BindableProperty.Create(
             propertyName: "Camera",
@@ -20,7 +21,16 @@ namespace EnergyLightMeter.Camera
             declaringType: typeof(CameraPreview),
             defaultValue: CameraOptions.Rear);
 
-        public CameraOptions Camera {
+        public CameraPreview()
+        { }
+
+        public CameraPreview(CameraOptions camera)
+        {
+            this.Camera = camera;
+        }
+
+        public CameraOptions Camera
+        {
             get => (CameraOptions)GetValue(CameraProperty);
             set => SetValue(CameraProperty, value);
         }
@@ -36,5 +46,10 @@ namespace EnergyLightMeter.Camera
         }
 
         public event Action PictureFinished;
+
+        public virtual void OnClick()   
+        {
+            Click?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
