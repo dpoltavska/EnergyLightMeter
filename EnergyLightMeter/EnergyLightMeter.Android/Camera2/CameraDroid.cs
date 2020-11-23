@@ -206,6 +206,11 @@ namespace EnergyLightMeter.Droid.Camera2
             _manager.OpenCamera(_cameraId, _cameraStateListener, null);
         }
 
+        public void CloseCamera()
+        {
+            CameraDevice.Close();
+        }
+
         public void StartPreview()
         {
             if (CameraDevice == null || !_cameraTexture.IsAvailable || _previewSize == null) return;

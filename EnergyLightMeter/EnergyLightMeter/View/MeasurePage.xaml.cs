@@ -20,7 +20,6 @@ namespace EnergyLightMeter.View
         private bool isCaptureContinuous = false;
         private bool isWritingToTheFile = false;
         private int periodOfWriting;
-        private CameraOptions currentCamera = CameraOptions.Rear;
 
         public FilesViewModel FileNames { get; set; }
 
@@ -225,8 +224,6 @@ namespace EnergyLightMeter.View
 
         private void SwitchCamerasButton_OnClicked(object sender, EventArgs e)
         {
-            this.currentCamera = this.currentCamera == CameraOptions.Front ? CameraOptions.Rear : CameraOptions.Front;
-
             CameraPreview.OnClick();
         }
     }

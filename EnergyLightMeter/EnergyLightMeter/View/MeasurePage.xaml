@@ -59,11 +59,17 @@
                    Keyboard="Numeric"
                    HorizontalTextAlignment="Center"
                    FontSize="15"></Entry>
-            <Label Text="Camera" 
-                   FontSize="18" 
-                   HorizontalTextAlignment="Center"
-                   BackgroundColor="Lavender"
-                   Padding="0,10,0,10"></Label>
+            <FlexLayout Direction="Row"
+                        AlignItems="Stretch"
+                        JustifyContent="Center" BackgroundColor="Lavender">
+                <Label Text="Camera" 
+                       FontSize="18" 
+                       HorizontalTextAlignment="Center"
+                       Padding="0,10,0,10"
+                       Margin="10,0,10,0"></Label>
+                <Button x:Name="SwitchCamerasButton" IsVisible="True" Text="Switch" FontSize="Micro"  Clicked="SwitchCamerasButton_OnClicked">
+                </Button>
+            </FlexLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="0,5,0,0">
                 <Label Text="Wavelength diapason:"
                        HorizontalTextAlignment="Center"
@@ -77,7 +83,6 @@
                    Keyboard="Numeric"
                    HorizontalTextAlignment="Center"
                    FontSize="15"></Entry>
-            <Button x:Name="SwitchCamerasButton" IsVisible="False" Clicked="SwitchCamerasButton_OnClicked"></Button>
             <local:CameraPreview  
                     x:Name="CameraPreview"           
                     BackgroundColor="Black"
@@ -86,7 +91,7 @@
                     Margin="0,0,0,0"
                     VerticalOptions="FillAndExpand">
             </local:CameraPreview>
-            <BoxView x:Name="DominantColor"
+                <BoxView x:Name="DominantColor"
                    HorizontalOptions="FillAndExpand"
                    HeightRequest="20"></BoxView>
             <Button 

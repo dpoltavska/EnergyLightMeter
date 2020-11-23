@@ -46,6 +46,7 @@ namespace EnergyLightMeter.Droid.Camera2
 
         void OnCameraPreviewClicked(object sender, EventArgs e)
         {
+            _camera.CloseCamera();
             _currentElement.Camera = _currentElement.Camera == CameraOptions.Front ? CameraOptions.Rear : CameraOptions.Front;
             _camera.SetCameraOption(_currentElement.Camera);
             _camera.OpenCamera(1080, 453);
